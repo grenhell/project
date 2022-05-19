@@ -1,6 +1,7 @@
+import java.io.IOException;
 import java.util.Scanner;
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         System.out.println("введите выражение через пробел");
         Scanner s = new Scanner(System.in);
         String input = s.nextLine();
@@ -13,8 +14,8 @@ public class Main {
         String dictionary = "0, I, II, III, IV, V, VI, VII, VIII, IX, X, XI, XII, XIII, XIV, XV, XVI, XVII, XVIII, XIX, XX, XXI, XXII, XXIII, XXIV, XXV, XXVI, XXVII, XXVIII, XXIX, XXX, XXXI, XXXII, XXXIII, XXXIV, XXXV, XXXVI, XXXVII, XXXVIII, XXXIX, XL, XLI, XLII, XLIII, XLIV, XLV, XLVI, XLVII, XLVIII, XLIX, L, LI, LII, LIII, LIV, LV, LVI, LVII, LVIII, LIX, LX, LXI, LXII, LXIII, LXIV, LXV, LXVI, LXVII, LXVIII, LXIX, LXX, LXXI, LXXII, LXXIII, LXXIV, LXXV, LXXVI, LXXVII, LXXVIII, LXXIX, LXXX, LXXXI, LXXXII, LXXXIII, LXXXIV, LXXXV, LXXXVI, LXXXVII, LXXXVIII, LXXXIX, XC, XCI, XCII, XCIII, XCIV, XCV, XCVI, XCVII, XCVIII, XCIX, C";
         String[] dictmass = dictionary.split(", ");
         if (vvodmass.length != 3) {
-            System.out.println("формат математической операции не удовлетворяет заданию");
-            return;}
+            throw new IOException();
+        }
             for (int k = 1; k < dictmass.length; k++) {
                 if (dictmass[k].equals(vvodmass[0])) {
                     a = k;
@@ -45,15 +46,15 @@ public class Main {
             }
 
             if (n != m) {
-                System.out.println("используются разные системы счисления");
+                throw new IOException();
             } else if (a > 10 && b > 10) {
-                System.out.println("введите значения в пределах от 0 до 10");
+                throw new IOException();
             } else if (n == 1 && a <= 0) {
-                System.out.println("значение не может быть отрицательным или 0");
+                throw new IOException();
             } else if (m == 1 && b <= 0) {
-                System.out.println("значение не может быть отрицательным или 0");
+                throw new IOException();
             } else if (n == 1 && result <= 0) {
-                System.out.println("значение не может быть отрицательным или 0");
+                throw new IOException();
             } else if (m == 1) {
                 System.out.println(dictmass[result]);
             } else {
