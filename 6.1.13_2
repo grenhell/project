@@ -1,55 +1,51 @@
-    public  static class DynamicArray<T> {
-        T[] tArray;
-        int size = 0;
-        int capacity = 10;
+public static class DynamicArray<T> {
+    int size = 0;
+    int capacity = 7;
+    T[] tArray = (T[]) new Object[capacity];
 
-        public void add(T el) {
-            if (size == capacity) {
-                increaseArraySize();
-            }
-            tArray[size] =  el;
-            size++;
+    public void add(T el) {
+        if (size == capacity) {
+            increaseArraySize();
         }
+        tArray[size] = el;
+        size++;
+    }
 
-        public void increaseArraySize() {
-            T[] tempArray = null;
-            if (size == capacity) {
-                tempArray = (T[]) new Object[capacity * 2];
-                    if (capacity >= 0) {
-                        System.arraycopy(tArray, 0, tempArray, 0, capacity);
-                    }
-            }
-            tArray = tempArray;
-            capacity = capacity * 2;
-        }
-
-
-       public T get(int index) {
-           if (index > size || index < 0) {
-               throw new ArrayIndexOutOfBoundsException();
-           }
-               return tArray[index];
-           }
-
-
-
-
-
-        public void remove(int index) {
-            if (index >= size || index < 0){
-                throw new ArrayIndexOutOfBoundsException();
-            }
-                tArray[index] = null;
-                size--;
-                T[] tempArray = (T[]) new Object[size];
-                for (int i =0; i < tempArray.length; i++) {
-                    int k = 0;
-                    if (i != index){
-                        tempArray[k++] = tArray[i];
-                }
-                tArray = tempArray;
+    public void increaseArraySize() {
+        T[] tempArray = null;
+        if (size == capacity) {
+            tempArray = (T[]) new Object[capacity * 2];
+            if (capacity >= 0) {
+                System.arraycopy(tArray, 0, tempArray, 0, capacity);
             }
         }
+        tArray = tempArray;
+        capacity = capacity * 2;
+    }
 
+
+    public T get(int index) {
+        if (index >= size || index < 0) {
+            throw new ArrayIndexOutOfBoundsException();
+        }
+        return tArray[index];
+    }
+
+
+    public void remove(int index) {
+        if (index >= size || index < 0) {
+            throw new ArrayIndexOutOfBoundsException();
+        }
+        tArray[index] = null;
+        T[] tempArray = (T[]) new Object[capacity];
+        int k = 0;
+        for (int i = 0; i < size; i++) {
+            if (i != index) {
+                tempArray[k++] = tArray[i];
+            }
+        }
+        size--;
+        tArray = tempArray;
 
     }
+}
