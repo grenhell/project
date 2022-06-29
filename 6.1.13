@@ -1,0 +1,78 @@
+import java.util.ArrayList;
+import java.util.List;
+
+public class Main {
+    public  static class DynamicArray<T> {
+        List <T> tArray;
+        int size;
+        int capacity;
+
+        public void add(T el) {
+            if (size == capacity) {
+                increaseArraySize();
+            }
+            tArray.set(size, el);
+            size++;
+        }
+
+        public  void  increaseArraySize () {
+            List<T> tempArray = new ArrayList<>(capacity * 2);
+                {
+                    if (capacity >= 0) {
+                        System.arraycopy(tArray, 0, tempArray, 0, capacity);
+                    }
+                }
+
+            tArray = tempArray;
+            capacity = capacity * 2;
+        }
+
+
+       public T get(int index) {
+           if (index > size || index < 0) {
+               throw new ArrayIndexOutOfBoundsException();
+           }
+               return tArray.get(index);
+        }
+
+        public void remove(int index) {
+            if (index > size || index < 0){
+                throw new ArrayIndexOutOfBoundsException();
+            }
+            if (size > 0) {
+                tArray.set(index, null);
+                size--;
+                T[] tempArray = (T[]) new Object[size - 1];
+                for (int i =0; i < tempArray.length; i++) {
+                    int k = 0;
+                    if (i != index){
+                        tempArray[k++] = tArray.get(i);
+                    }
+                }
+                tArray = List.of(tempArray);
+            }
+        }
+
+    }
+
+
+
+
+    public static void main(String[] args) {
+        DynamicArray<String> strings = new DynamicArray<>();
+        strings.add("one");
+        strings.add("two");
+        strings.add("three");
+
+        System.out.println("After add");
+        System.out.println("the length is: "+strings.length());
+        for (int i = 0; i < strings.length(); i  ) {
+            System.out.println(strings.get(i));
+        }
+        System.out.println();
+        strings.remove(2);
+        System.out.println("After remove");
+        System.out.println("the length is: "+strings.length());
+        for (int i = 0; i < strings.length(); i  ) {
+            System.out.println(strings.get(i));
+        } 
